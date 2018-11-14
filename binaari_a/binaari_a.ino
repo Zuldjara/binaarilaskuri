@@ -1,8 +1,9 @@
-#define led1 10
-#define led2 11
-#define led3 12
-#define led4 13
-
+#define led1 13
+#define led2 12
+#define led3 11
+#define led4 10
+#define vcc1 5
+#define vcc2 4
 //#define delay = 1000
 
 void number0(){
@@ -11,7 +12,8 @@ void number0(){
   digitalWrite(led2, LOW);
   digitalWrite(led3, LOW);
   digitalWrite(led4, LOW);
- 
+  
+ //digitalWrite(vcc2, LOW);
 }
 
 void number1(){
@@ -20,7 +22,8 @@ void number1(){
   digitalWrite(led2, LOW);
   digitalWrite(led3, LOW);
   digitalWrite(led4, LOW);
-
+//digitalWrite(vcc1, LOW);
+//digitalWrite(vcc2, HIGH);
 }
 
 void number2(){
@@ -99,16 +102,61 @@ void number9(){
 void setup() {
 
 Serial.begin(9600);
+Serial.println("");
+Serial.println("Alku");
+Serial.println("");
 
 pinMode(led1, OUTPUT);
 pinMode(led2, OUTPUT);
 pinMode(led3, OUTPUT);
 pinMode(led4, OUTPUT);
+pinMode(vcc1, OUTPUT);
+pinMode(vcc2, OUTPUT);
 
 }
 
 
+
+void showNum(int i){
+  Serial.print("showNum i= ");
+  Serial.println(i);
+  switch(i){
+    case 0: number0();break;
+    case 1: number1();break;
+    case 2: number2();break;
+    case 3: number3();break;
+    case 4: number4();break;
+    case 5: number5();break;
+    case 6: number6();break;
+    case 7: number7();break;
+    case 8: number8();break;
+    case 9: number9();break;
+  }
+}
+
+void count(){
+  for(int x=0;x<10;x++){
+    showNum(x);
+    Serial.print("for-loopissa. x= ");
+    Serial.println(x);
+    delay(200);
+  }
+}
+
+
 void loop() {
+  Serial.println("Vasen näyttö");
+  digitalWrite(vcc1, HIGH);
+  digitalWrite(vcc2, LOW);
+  count();
+  Serial.println("Oikea näyttö");
+  digitalWrite(vcc1, LOW);
+  digitalWrite(vcc2, HIGH);
+  count();
+}
+
+
+void loop1() {
 
 int x = Serial.read();
 
